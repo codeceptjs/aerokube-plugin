@@ -1,0 +1,39 @@
+{
+  "name": "@codeceptjs/aerokube-plugin",
+  "version": "1.0.0",
+  "description": "CodeceptJS support for Aerokube Browsers https://browsers.aerokube.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "npx documentation readme index.js --section=API --shallow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codecept-js/aerokube.git"
+  },
+  "files": [
+    "./index.js"
+  ],
+  "keywords": [
+    "codeceptjs",
+    "browsers",
+    "testing"
+  ],
+  "author": "Michael Bodnarchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codecept-js/aerokube/issues"
+  },
+  "homepage": "https://github.com/codecept-js/aerokube#readme",
+  "peerDependencies": {
+    "codeceptjs": "^2.3.0"
+  },
+  "dependencies": {
+    "codeceptjs": "^2.3.1",
+    "webdriverio": "^5.12.5"
+  },
+  "devDependencies": {
+    "documentation": "^12.1.1",
+    "dotenv": "^8.1.0"
+  }
+}
