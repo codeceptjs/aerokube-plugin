@@ -47,26 +47,17 @@ module.exports = (conf) => {
 
     output.error('WebDriver or Puppeteer not connected, aerokube plugin ignored');
   
-    // before all: If WebDriver enabled -> provide connection capabilities
-  
-  
-  
-    // before all: If Puppeteer enabled 
-    //     and restart: false -> disable creating browser, create browser from webdriver
-    //     and restart: true -> disable creating browser, create browser from webdriver at test.before
-    //      
-
 }
 
 function connectWebDriver(conf) {
-  output.debug('Starting Aerokube Browsers session for WebDriver...');
+  output.print('Starting Aerokube Browsers session for WebDriver...');
   const WebDriver = container.helpers('WebDriver');
   WebDriver._setConfig(Object.assign(WebDriver.options, conf));
 }
 
 function connectPuppeteer(conf) {
   const { remote } = require('webdriverio');
-  output.debug('Starting Aerokube Browsers session for Puppeteer...');
+  output.print('Starting Aerokube Browsers session for Puppeteer...');
   const Puppeteer = container.helpers('Puppeteer');
 
   if (Puppeteer.options.restart) {
