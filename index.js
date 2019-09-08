@@ -16,8 +16,12 @@ const defaultConf = {
  * 
  * ```js
  * // codecept.conf.js config 
- * exports.confg = {
- *   // regular config goes here
+ * exports.config = {
+ *   helpers: {
+ *      // regular Puppeteer config
+ *      // or regular WebDriver config
+ *   },
+ *   // ....
  *   plugins: {
  *      aerokube: {
  *        require: '@codeceptjs/aerokube-plugin',
@@ -27,6 +31,19 @@ const defaultConf = {
  *   } 
  * }
  * ```
+ * 
+ * Important information:
+ * 
+ * ### WebDriver
+ * 
+ * * Desired capabilities are ignored
+ * 
+ * ### Puppeteer 
+ * 
+ * We use `webdriverio` library to initialize a browser session and obtain DevTool Protocol API credentials.
+ * 
+ * * `windowSize` option is used to set initial window size. Not viewport size.
+ * * Chrome starting options are ignored.
  * 
  */
 module.exports = (conf) => {
@@ -72,6 +89,15 @@ function connectPuppeteer(conf) {
       const browser = await remote(conf);
       Puppeteer.isRemoteBrowser = true;
       Puppeteer.puppeteerOptions = { browserWSEndpoint: `wss://${conf.hostname}:4444/devtools/${browser.sessionId}/` }
+
+      if (!conf.windowSize) return;
+      if (width === 'maximize') return browser.maximizeWindow();
+      const [width, height] = conf.windowSize.split('x');
+      if (browser.isW3C) {
+        return browser.setWindowRect(null, null, parseInt(width, 10), parseInt(height, 10));
+      } 
+      return browser.setWindowSize(parseInt(width, 10), parseInt(height, 10));
     });
+
   }
 }
