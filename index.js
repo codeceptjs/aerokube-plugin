@@ -11,8 +11,20 @@ const defaultConf = {
 /**
  * 
  * Run WebDriver and Puppeteer tests in [cloud browsers provided by Aerokube](https://browsers.aerokube.com).
- * Aerokube provides lightning fast and comparable cheap browsers. To use with CodeceptJS enable this plugin:
+ * **Aerokube provides lightning fast and comparable cheap browsers** without pain of maintaining own infrastructure.
+ * This plugin works with WebDriver and Puppeteer helpers of CodeceptJS.
  * 
+ * > If you need to host cloud browsers on your own infrastructure consider browsers in Kubernetes with [Aerokube Moon](https://aerokube.com/moon/)
+ * 
+ * ## Setup
+ * 
+ * Install this plugin in CodeceptJS project.
+ * 
+ * ```
+ * npm i @codeceptjs/aerokube-plugin --save-dev
+ * ```
+ * 
+ * Enable the plugin in `codecept.conf.js`
  * 
  * ```js
  * // codecept.conf.js config 
@@ -32,7 +44,17 @@ const defaultConf = {
  * }
  * ```
  * 
- * Important information:
+ * > It is recommended to use `dotenv` package to store `username` and `password` from Aerokube Browsers. See the config in `example` dir.
+ * 
+ * To run tests in cloud, enable this plugin:
+ * 
+ * ```
+ * npx codeceptjs run --steps -p aerokube
+ * ```
+ * 
+ * > To enable aerokube plugin permanently use `enabled: true`.
+ * 
+ * ## Usage
  * 
  * ### WebDriver
  * 

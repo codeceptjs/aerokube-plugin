@@ -1,6 +1,8 @@
 # aerokube Plugin
 
-Aerokube Browsers support in CodeceptJS
+Cloud browser testing with [Aerokube Browsers](https://browsers.aerokube.com) in CodeceptJS.
+
+![](https://browsers.aerokube.com/static/media/preview-img.277a0d1d.png)
 
 ## API
 
@@ -9,17 +11,36 @@ Aerokube Browsers support in CodeceptJS
 #### Table of Contents
 
 -   [index](#index)
+-   [Setup](#setup)
+-   [Usage](#usage)
+    -   [WebDriver](#webdriver)
+    -   [Puppeteer](#puppeteer)
     -   [Parameters](#parameters)
 
 ### index
 
 Run WebDriver and Puppeteer tests in [cloud browsers provided by Aerokube](https://browsers.aerokube.com).
-Aerokube provides lightning fast and comparable cheap browsers. To use with CodeceptJS enable this plugin:
+**Aerokube provides lightning fast and comparable cheap browsers** without pain of maintaining own infrastructure.
+This plugin works with WebDriver and Puppeteer helpers of CodeceptJS.
+
+> If you need to host cloud browsers on your own infrastructure consider browsers in Kubernetes with [Aerokube Moon](https://aerokube.com/moon/)
+
+### Setup
+
+Install this plugin in CodeceptJS project.
+
+    npm i @codeceptjs/aerokube-plugin --save-dev
+
+Enable the plugin in `codecept.conf.js`
 
 ```js
 // codecept.conf.js config 
-exports.confg = {
-  // regular config goes here
+exports.config = {
+  helpers: {
+     // regular Puppeteer config
+     // or regular WebDriver config
+  },
+  // ....
   plugins: {
      aerokube: {
        require: '@codeceptjs/aerokube-plugin',
@@ -30,6 +51,44 @@ exports.confg = {
 }
 ```
 
+> It is recommended to use `dotenv` package to store `username` and `password` from Aerokube Browsers. See the config in `example` dir.
+
+To run tests in cloud, enable this plugin:
+
+    npx codeceptjs run --steps -p aerokube
+
+> To enable aerokube plugin permanently use `enabled: true`.
+
+### Usage
+
+#### WebDriver
+
+-   Desired capabilities are ignored
+
+#### Puppeteer
+
+We use `webdriverio` library to initialize a browser session and obtain DevTool Protocol API credentials.
+
+-   `windowSize` option is used to set initial window size. Not viewport size.
+-   Chrome starting options are ignored.
+
 #### Parameters
 
 -   `conf`  
+
+## Example Project
+
+To try aerokube plugin without a project, use the one provided in this repo inside `example` directory.
+
+1.  Register at [Browsers Aerokube](https://browsers.aerokube.com).
+2.  Run `npm install` to install all depdndencies.
+3.  Create `.env` file with the following contents. Username and password should be obtained from Aerokube Browsers.
+    -   `ACCOUNT=<username from aerokube>`
+    -   `PASSWORD=<password from aerokube>`
+4.  Execute tests :
+
+    -   To launch tests in WebDriver 
+            npx codeceptjs run -c example --steps
+    -   To launch tests in Puppeteer
+
+            PUPPETEER=true npx codeceptjs run -c example --steps

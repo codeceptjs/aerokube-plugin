@@ -6,7 +6,9 @@ exports.config = {
   helpers: {
     WebDriver: {
       url: 'http://localhost',
-      browser: 'chrome'
+      browser: 'chrome',
+      windowSize: '1600x1000',
+      someRandomOption: 'xxx',
     }
   },
 
